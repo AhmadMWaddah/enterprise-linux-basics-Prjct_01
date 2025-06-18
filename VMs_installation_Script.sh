@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ###############################################################################
 # Script Name: VMs_installation_Script.sh
 #
@@ -27,15 +29,13 @@
 ###############################################################################
 
 # === Configuration Variables ===
-VM_NAMES=("ServerOne" "ServerTwo" "ServerThree")
-# IMAGE_DIR="/home/amw/Office/DevOps/Practice_VMs"
-IMAGE_DIR="~/Office/DevOps/Practice_VMs"
+VM_NAMES=("ServOneVM" "ServTwoVM" "ServThreeVM")
+IMAGE_DIR="/home/amw/Office/DevOps/Practice_VMs"
 DISK_SIZE="30G"
-RAM="2048"
-VCPUS="2"
+RAM="3072"
+VCPUS="1"
 OS_VARIANT="rocky9"
-# ROCKY_ISO_PATH="/home/amw/Office/Linux/Distros/Rocky 9.5 AMD64/Rocky 9.5 AMD64 DVD.iso"
-ROCKY_ISO_PATH="~/Distros/Rocky 9.5 AMD64 DVD.iso"
+ROCKY_ISO_PATH="/home/amw/Office/Linux/Distros/Rocky 9.5 AMD64/Rocky 9.5 AMD64 DVD.iso"
 OS_ARCH="x86_64"
 NETWORK_BRIDGE="default"  # change to your preferred bridge/network if needed
 
@@ -80,8 +80,9 @@ for vm in "${VM_NAMES[@]}"; do
         --network network="$NETWORK_BRIDGE",model=virtio \
         --graphics=none \
         --console pty,target_type=serial \
-        --cdrom "$ROCKY_ISO_PATH" \
-        --disk path="$disk_path",format=qcow2,bus=virtio,size="${DISK_SIZE/G/}"
+        --location "$ROCKY_ISO_PATH" \
+        --disk path="$disk_path",format=qcow2,bus=virtio,size="${DISK_SIZE/G/}" \
+	--extra-args="console=ttyS0 inst.text"
 
     echo "✅ VM $vm installation complete."
 done
