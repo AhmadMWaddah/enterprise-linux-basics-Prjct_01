@@ -13,12 +13,12 @@ set -e
 #     - Checks if a VM with the given name already exists.
 #     - Checks if the corresponding qcow2 disk image already exists.
 #     - Skips installation if either already exists.
-#     - Installs the VM using a provided Rocky Linux ISO file in text mode.
+#     - Installs the VM using a provided Rocky/Alma Linux ISO file in text mode.
 #
 # Requirements:
 #   - Host OS: Ubuntu (with KVM, libvirt, virt-manager, qemu-system-x86 installed)
 #   - User must be in the libvirt/kvm group or run with sudo
-#   - Rocky Linux ISO file must be accessible locally
+#   - Rocky/Alma Linux ISO file must be accessible locally
 #
 # Notes:
 #   - You can modify the IMAGE_DIR, ISO path, RAM, vCPU, etc. as needed.
